@@ -2,50 +2,50 @@ package com.simpleblog.controller;
 
 import com.simpleblog.model.Post;
 import com.simpleblog.service.PostService;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
+@RequestMapping("/api")
 public class PostController {
 
     @Autowired
     private PostService postService;
 
-    @GetMapping("/home")
-    public String getAllPost(Model model) {
-        model.addAttribute("Posts",postService.findAllPosts());
-        return "home";
+    @GetMapping("/posts")
+    public ResponseEntity<List<Post>> getAllPost() {
+        List<Post> posts = postService.findAllPosts();
+        if(posts.isEmpty())
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(posts,HttpStatus.OK);
     }
 
-    @GetMapping("/login")
-    public String getLoginPage() {
-        return "login";
+    @PostMapping("/posts")
+    public ResponseEntity<Post> createPost(String title, String content){
+        Post post = postService.createPost(title,content);
+        return new ResponseEntity<>(post,HttpStatus.OK);
     }
 
-    @PostMapping("/home")
-    public String createPost(String title, String content,Model model){
-        postService.createPost(title,content);
-        model.addAttribute("Posts", postService.findAllPosts());
-        return "redirect:/home";
-    }
-
-    @GetMapping("/home/{id}")
-    public String getPostById(@PathVariable Long id, Model model) throws Exception {
+    @GetMapping("/posts/{id}")
+    public ResponseEntity<Post> getPostById(@PathVariable Long id) throws Exception {
         Post post = postService.findPostById(id);
-        model.addAttribute("Post", post);
-        return "/home/{id}";
+        return new ResponseEntity<>(post,HttpStatus.OK);
     }
 
-    @DeleteMapping("/home/{id}")
-    public String deletePostById(@PathVariable Long id, Model model) {
+    @DeleteMapping("/posts/{id}")
+    public ResponseEntity<Post> deletePostById(@PathVariable Long id) {
         postService.deletePostById(id);
-        model.addAttribute("Posts",postService.findAllPosts());
-        return "redirect:/home";
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }
