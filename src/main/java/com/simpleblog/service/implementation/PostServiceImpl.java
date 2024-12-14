@@ -22,12 +22,13 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public void createPost(String title ,String content) {
+    public Post createPost(String title ,String content) {
         LocalDateTime localDateTime = LocalDateTime.now();
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         String timestamp = localDateTime.format(dateTimeFormatter);
         Post post = new Post(title,content,timestamp);
         postRepository.save(post);
+        return post;
     }
 
     @Override

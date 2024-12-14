@@ -9,7 +9,7 @@ import java.util.List;
 public interface PostService {
 
     List<Post> findAllPosts();
-    void createPost(String title,String content);
+    Post createPost(String title,String content);
     void deletePostById(Long id);
     Post findPostById(Long id) throws Exception;
 }
