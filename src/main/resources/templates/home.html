@@ -13,5 +13,15 @@
     <form th:action="@{/logout}" method="post">
         <input type="submit" value="Sign Out"/>
     </form>
+
+    <div id="create-blog-post-form">
+        <form th:action="@{/home}" method="post">
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" size="10" />
+            <label for="content">Content:</label>
+            <textarea type="text" id="content" name="content" size="50"></textarea>
+            <button type="submit" id="buttonSubmission">Submit</button>
+        </form>
+    </div>
 </body>
 </html>

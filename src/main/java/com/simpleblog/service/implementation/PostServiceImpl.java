@@ -24,7 +24,7 @@ public class PostServiceImpl implements PostService {
     @Override
     public Post createPost(String title ,String content) {
         LocalDateTime localDateTime = LocalDateTime.now();
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         String timestamp = localDateTime.format(dateTimeFormatter);
         Post post = new Post(title,content,timestamp);
         postRepository.save(post);
