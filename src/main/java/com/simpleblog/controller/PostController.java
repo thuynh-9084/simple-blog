@@ -26,7 +26,7 @@ public class PostController {
     public ResponseEntity<List<Post>> getAllPost() {
         List<Post> posts = postService.findAllPosts();
         if(posts.isEmpty())
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         return new ResponseEntity<>(posts,HttpStatus.OK);
     }
 
@@ -45,7 +45,7 @@ public class PostController {
     @DeleteMapping("/posts/{id}")
     public ResponseEntity<Post> deletePostById(@PathVariable Long id) {
         postService.deletePostById(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 }
