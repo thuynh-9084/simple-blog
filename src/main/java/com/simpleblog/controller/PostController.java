@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,9 +32,9 @@ public class PostController {
     }
 
     @PostMapping("/posts")
-    public ResponseEntity<Post> createPost(String title, String content){
-        Post post = postService.createPost(title,content);
-        return new ResponseEntity<>(post,HttpStatus.OK);
+    public ResponseEntity<Post> createPost(@RequestBody Post newPost){
+        Post post = postService.createPost(new Post(newPost.getTitle(),newPost.getContent(),newPost.getLocalDate()));
+        return new ResponseEntity<>(post,HttpStatus.CREATED);
     }
 
     @GetMapping("/posts/{id}")
