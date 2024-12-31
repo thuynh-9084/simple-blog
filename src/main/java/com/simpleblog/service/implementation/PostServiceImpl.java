@@ -6,8 +6,7 @@ import com.simpleblog.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -22,13 +21,12 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Post createPost(String title ,String content) {
-        LocalDateTime localDateTime = LocalDateTime.now();
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        String timestamp = localDateTime.format(dateTimeFormatter);
-        Post post = new Post(title,content,timestamp);
-        postRepository.save(post);
-        return post;
+    public Post createPost(Post post) {
+        LocalDate localDateTime = LocalDate.now();
+        post.setLocalDate(localDateTime);
+        Post postCreation = new Post(post.getTitle(),post.getContent(),post.getLocalDate());
+        postRepository.save(postCreation);
+        return postCreation;
     }
 
     @Override

@@ -1,5 +1,9 @@
 package com.simpleblog.model;
 
+import java.time.LocalDate;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,12 +20,13 @@ public class Post {
     private String title;
     @NotBlank
     private String content;
-    private String time;
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    private LocalDate timePostCreated;
 
-    public Post(String title, String content, String time){
+    public Post(String title, String content, LocalDate timePostCreated){
         this.title = title;
         this.content = content;
-        this.time = time;
+        this.timePostCreated = timePostCreated;
     }
 
     public @NotBlank String getTitle() {
@@ -40,11 +45,11 @@ public class Post {
         this.content = content;
     }
 
-    public String getTime() {
-        return time;
+    public LocalDate getLocalDate(){
+        return timePostCreated;
     }
 
-    public void setTime(String time) {
-        this.time = time;
-    }
+    public void setLocalDate(LocalDate timePostCreated) {
+        this.timePostCreated = timePostCreated;
+    }    
 }
