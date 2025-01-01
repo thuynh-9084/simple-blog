@@ -33,8 +33,11 @@ public class PostController {
 
     @PostMapping("/posts")
     public ResponseEntity<Post> createPost(@RequestBody Post newPost){
-        Post post = postService.createPost(new Post(newPost.getTitle(),newPost.getContent(),newPost.getLocalDate()));
-        return new ResponseEntity<>(post,HttpStatus.CREATED);
+        if(!(newPost.getTitle().isEmpty() && newPost.getContent().isEmpty())) {
+            Post post = postService.createPost(new Post(newPost.getTitle(),newPost.getContent(),newPost.getLocalDate()));
+            return new ResponseEntity<>(post,HttpStatus.CREATED);
+        }
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @GetMapping("/posts/{id}")
