@@ -23,11 +23,21 @@ public class Post {
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate timePostCreated;
 
+    public Post(){}
+
     public Post(String title, String content, LocalDate timePostCreated){
         this.title = title;
         this.content = content;
         this.timePostCreated = timePostCreated;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id){
+        this.id = id;
+    } 
 
     public @NotBlank String getTitle() {
         return title;
