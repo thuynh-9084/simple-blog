@@ -25,8 +25,7 @@ public class PostServiceImpl implements PostService {
         LocalDate localDateTime = LocalDate.now();
         post.setLocalDate(localDateTime);
         Post postCreation = new Post(post.getTitle(),post.getContent(),post.getLocalDate());
-        postRepository.save(postCreation);
-        return postCreation;
+        return postRepository.save(postCreation);
     }
 
     @Override

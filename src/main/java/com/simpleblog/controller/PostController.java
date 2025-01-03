@@ -1,55 +1,45 @@
 package com.simpleblog.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+
 import com.simpleblog.model.Post;
 import com.simpleblog.service.PostService;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-@RestController
-@RequestMapping("/api")
+@Controller
 public class PostController {
-
+    
     @Autowired
     private PostService postService;
 
-    @GetMapping("/posts")
-    public ResponseEntity<List<Post>> getAllPost() {
-        List<Post> posts = postService.findAllPosts();
-        if(posts.isEmpty())
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        return new ResponseEntity<>(posts,HttpStatus.OK);
+    @GetMapping("/post")
+    public String getAllPost(Model model) {
+        model.addAttribute("posts", postService.findAllPosts());
+        model.addAttribute("post", new Post());
+        return "post";
     }
 
-    @PostMapping("/posts")
-    public ResponseEntity<Post> createPost(@RequestBody Post newPost){
-        if(!(newPost.getTitle().isEmpty() && newPost.getContent().isEmpty())) {
-            Post post = postService.createPost(new Post(newPost.getTitle(),newPost.getContent(),newPost.getLocalDate()));
-            return new ResponseEntity<>(post,HttpStatus.CREATED);
+    @PostMapping("/post")
+    public String createPost(@ModelAttribute Post post, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("post", postService.findAllPosts());
+            return "post";
         }
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        postService.createPost(post);
+        return "post";
     }
 
-    @GetMapping("/posts/{id}")
-    public ResponseEntity<Post> getPostById(@PathVariable Long id) throws Exception {
-        Post post = postService.findPostById(id);
-        return new ResponseEntity<>(post,HttpStatus.OK);
-    }
-
-    @DeleteMapping("/posts/{id}")
-    public ResponseEntity<Post> deletePostById(@PathVariable Long id) {
-        postService.deletePostById(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    @GetMapping("/post/{id}")
+    public String getPostById(@PathVariable Long id, Model model) throws Exception {
+        model.addAttribute("post", postService.findPostById(id));
+        return "post-details";
     }
 
 }
