@@ -2,7 +2,6 @@ package com.simpleblog.model;
 
 import java.time.LocalDate;
 
-import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -20,7 +19,6 @@ public class Post {
     private String title;
     @NotBlank
     private String content;
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate timePostCreated;
 
     public Post(){}
