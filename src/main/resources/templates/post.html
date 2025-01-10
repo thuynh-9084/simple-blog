@@ -32,12 +32,10 @@
                 <a th:href="@{/post/{id}(id=${post.id})}" th:text="${post.title}"></a>
             </td>
             <td>
-
                 <p><span th:text="${post.getLocalDate}"></span></p>
             <td>
                 <a th:href="@{/post/edit/{id}(id=${post.id})}">Edit</a>
             </td>
-
             <td>
                 <form th:action="@{/post/{id}(id=${post.id})}" method="post">
                     <input type="hidden" name="id" th:value="${post.id}">

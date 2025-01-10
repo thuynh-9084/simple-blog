@@ -13,7 +13,6 @@
         <label for="content">Content</label>
         <input type="text" th:field="*{content}" th:value="${post.content}" id="content">
         <span th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></span>
-        
         <input type="submit" value="Submit">   
     </form>
 </body>
