@@ -22,10 +22,17 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Post createPost(Post post) {
-        LocalDate localDateTime = LocalDate.now();
-        post.setLocalDate(localDateTime);
-        Post postCreation = new Post(post.getTitle(),post.getContent(),post.getLocalDate());
+        Post postCreation = new Post(post.getTitle(),post.getContent(),LocalDate.now());
         return postRepository.save(postCreation);
+    }
+
+    @Override
+    public Post updatePost(Long id, Post updatedPost) throws Exception {
+        Post existingPostById = findPostById(id);
+        existingPostById.setTitle(updatedPost.getTitle());
+        existingPostById.setContent(updatedPost.getContent());
+        existingPostById.setLocalDate(LocalDate.now());
+        return postRepository.save(existingPostById);
     }
 
     @Override
