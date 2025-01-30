@@ -10,7 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity
-public class Post {
+public class BlogPosts {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -21,9 +21,9 @@ public class Post {
     private String content;
     private LocalDate timePostCreated;
 
-    public Post(){}
+    public BlogPosts(){}
 
-    public Post(String title, String content, LocalDate timePostCreated){
+    public BlogPosts(String title, String content, LocalDate timePostCreated){
         this.title = title;
         this.content = content;
         this.timePostCreated = timePostCreated;
