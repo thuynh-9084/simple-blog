@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+
+</head>
+<body sec:authorize="isAuthenticated()">
+    
+    <form th:action="@{/dashboard}" th:object="${blogPosts}" method="post">
+        <label for="title">Title:</label>
+        <input type="text" th:field="*{title}" id="title" placeholder="Title">
+        <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+        <label for="content">Content:</label>
+        <input type="text" th:field="*{content}" id="content" placeholder="content">
+        <span th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></span>
+        
+        <input type="submit" value="Submit">   
+    </form>
+
+    <table>
+        <tr th:each="blogPost : ${getAllBlogPosts}">
+            <td>
+                <a th:href="@{/dashboard/{id}(id=${blogPost.id})}" th:text="${blogPost.title}"></a>
+            </td>
+                <p><span th:text="${blogPost.getLocalDate}"></span></p>
+            <td>
+                <a th:href="@{/dashboard/edit/{id}(id=${blogPost.id})}">Edit</a>
+            </td>
+            <td>
+                <form th:action="@{/dashboard/{id}(id=${blogPost.id})}" method="post">
+                    <input type="hidden" name="id" th:value="${blogPost.id}">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+
+</body>
+</html>
