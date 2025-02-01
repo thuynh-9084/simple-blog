@@ -19,9 +19,9 @@
         <tr th:each="blogPost : ${getAllBlogPosts}">
             <td>
                 <a th:href="@{/blog/{id}(id=${blogPost.id})}" th:text="${blogPost.title}"></a>
+                <p><span th:text="${blogPost.getLocalDate}"></span></p>
             </td>
 
-            <p><span th:text="${blogPost.getLocalDate}"></span></p>
         </tr>
     </table>
 
