@@ -27,6 +27,12 @@ public class AdminBlogPostController {
         return "/dashboard";
     }
 
+    @GetMapping("/dashboard/{id}")
+    public String getBlogPostFromId(@PathVariable Long id, Model model) throws Exception {
+        model.addAttribute("blogPosts", blogPostsService.findPostById(id));
+        return "blog-post-details";
+    }
+    
     @PostMapping("/dashboard")
     public String createPost(@ModelAttribute BlogPosts post, BindingResult result, Model model) {
         if (result.hasErrors()) {
