@@ -1,0 +1,12 @@
+nav {
+    display: flex;
+    align-items: center;
+    padding: 0 30px;
+    flex-direction: row;
+    justify-content: space-around;
+    border: 1px solid black;
+}
+
+body {
+    background-color: #d4d4d4;
+}

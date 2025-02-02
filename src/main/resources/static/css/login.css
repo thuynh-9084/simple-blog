@@ -1,0 +1,13 @@
+form {
+    text-align: center; 
+    color:black;
+    height: 146px;
+    border: 1px solid black;
+    border-spacing: 15px;
+    display:inline-table;
+    position: absolute;
+    top: 50%;
+    left: 50%; 
+    transform: translate(-50%, -50%);
+    
+}
