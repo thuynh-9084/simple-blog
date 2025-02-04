@@ -3,18 +3,20 @@
                 xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link th:href="@{/css/dashboard.css}" rel="stylesheet"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
 
 </head>
 <body sec:authorize="isAuthenticated()">
     
+    <h1>Dashboard:</h1>
     <form th:action="@{/dashboard}" th:object="${blogPosts}" method="post">
         <label for="title">Title:</label>
         <input type="text" th:field="*{title}" id="title" placeholder="Title">
         <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
         <label for="content">Content:</label>
-        <input type="text" th:field="*{content}" id="content" placeholder="content">
+        <input type="text" th:field="*{content}" id="content" placeholder="content" style="width: 300px">
         <span th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></span>
         
         <input type="submit" value="Submit">   
@@ -25,7 +27,7 @@
             <td>
                 <a th:href="@{/dashboard/{id}(id=${blogPost.id})}" th:text="${blogPost.title}"></a>
             </td>
-                <p><span th:text="${blogPost.getLocalDate}"></span></p>
+            
             <td>
                 <a th:href="@{/dashboard/edit/{id}(id=${blogPost.id})}">Edit</a>
             </td>
