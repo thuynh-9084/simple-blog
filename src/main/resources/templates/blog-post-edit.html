@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Posts</title>
+    <link th:href="@{/css/blog-post-edit.css}" rel="stylesheet"/>
+    <title>Edit blog post</title>
 </head>
 <body sec:authorize="isAuthenticated()">
     <form th:action="@{/dashboard/edit/{id}(id=${blogPosts.id})}" th:object="${blogPosts}" method="post">
