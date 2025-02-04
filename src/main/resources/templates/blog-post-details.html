@@ -2,12 +2,15 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
+    <link th:href="@{/css/blog-post-details.css}" rel="stylesheet"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Posts</title>
 </head>
 <body>
-    <h1 th:text="${blogPosts.title}"></h1>
-    <p>Posted on <span th:text="${blogPosts.getLocalDate}"></span></p>
-    <p th:text="${blogPosts.content}"></p>
+    <div>
+        <h1 th:text="${blogPosts.title}"></h1>
+        <p>Posted on <span th:text="${blogPosts.getLocalDate}"></span></p>
+        <p th:text="${blogPosts.content}"></p>
+    </div>
 </body>
 </html>
