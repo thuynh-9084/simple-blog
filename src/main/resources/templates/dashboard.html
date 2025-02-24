@@ -11,6 +11,9 @@
 <body sec:authorize="isAuthenticated()">
     
     <h1>Dashboard:</h1>
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Sign Out"/>
+    </form>
     <form th:action="@{/dashboard}" th:object="${blogPosts}" method="post">
         <label for="title">Title:</label>
         <input type="text" th:field="*{title}" id="title" placeholder="Title">
